@@ -1,4 +1,4 @@
-import ItemTimer from "../lib/ItemTimer";
+import { ItemTimer } from "../lib";
 import { ChangeEvent, useState } from "react";
 
 function App() {

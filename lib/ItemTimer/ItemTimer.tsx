@@ -12,25 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import "./ItemTimer.css";
 import { ChangeEvent } from "react";
 
 const ItemTimer = (props: {
   name: string;
-  time: string;
+  time: number;
   nameChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
-    <div className="item-timer">
-      <label className="item-timer__name__label">
+    <>
+      <div className="item-timer w-full max-w-sm p-2 space-x-2 mx-auto flex items-center">
         <input
-          className="item-timer__name__input"
+          className="item-timer__name shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           value={props.name}
           onChange={props.nameChange}
+          placeholder="Task Name"
         />
-      </label>
-      <div className="item-timer__time">{props.time}</div>
-    </div>
+        <div className="item-timer__time">{props.time}</div>
+      </div>
+    </>
   );
 };
 
