@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     let interval: NodeJS.Timeout | number = 0;
-    if (active && false === paused) {
+    if (active && !paused) {
       interval = setInterval(() => {
         const current = Date.now();
         setTime((time) => current - lastUpdated + time);
