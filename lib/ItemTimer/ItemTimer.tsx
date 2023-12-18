@@ -14,23 +14,57 @@
 
 import "./ItemTimer.css";
 import { ChangeEvent } from "react";
+import playSvg from "./play.svg";
+import pauseSvg from "./pause.svg";
 
 const ItemTimer = (props: {
   name: string;
   time: number;
+  active: boolean;
+  paused: boolean;
+  lastUpdated: number;
   nameChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleStart: () => void;
+  handlePause: () => void;
+  handleReset: () => void;
 }) => {
+  const StartButton = (
+    <button onClick={props.handleStart}>
+      <img src={playSvg} className="h-12" />
+    </button>
+  );
+  const PauseButton = (
+    <button onClick={props.handlePause}>
+      <img src={props.paused ? playSvg : pauseSvg} className="h-12" />
+    </button>
+  );
   return (
     <>
-      <div className="item-timer w-full max-w-sm p-2 space-x-2 mx-auto flex items-center">
+      <div className="w-full max-w-md p-2 space-x-2 mx-auto flex items-center">
+        <>{props.active ? PauseButton : StartButton}</>
         <input
-          className="item-timer__name shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           value={props.name}
           onChange={props.nameChange}
           placeholder="Task Name"
         />
-        <div className="item-timer__time">{props.time}</div>
+        <div className="font-mono">
+          <span>
+            {("0" + Math.floor(props.time / 1000 / 60 / 60)).slice(-2)}:
+          </span>
+          <span>
+            {("0" + (Math.floor(props.time / 1000 / 60) % 60)).slice(-2)}:
+          </span>
+          <span>{("0" + (Math.floor(props.time / 1000) % 60)).slice(-2)}.</span>
+          <span>{("0" + props.time).slice(-3)}</span>
+        </div>
+        <button
+          className="bg-red-100 hover:bg-red-300 font-bold rounded p-2 text-sm"
+          onClick={props.handleReset}
+        >
+          Reset
+        </button>
       </div>
     </>
   );
